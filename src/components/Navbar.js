@@ -1,5 +1,14 @@
-import React from 'react';
-import {Link, Router} from 'react-router-dom'
+import React from 'react'
+import './style.css'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  BrowserRouter
+} from "react-router-dom";
+import Home from './Home';
+import Post from './Post';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -64,33 +73,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+const Navbar = () => {
   const classes = useStyles();
-
   return (
-    <div className={classes.root}>
+    <BrowserRouter>
+    <Router>
+ <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+        
           <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
+       
             <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-              <Router>
-          <Link to='/' className='navlink-home'>Home</Link>
-          <Link to='/post' className='navlink-home'>Post</Link>
-          <Switch>
-          <Route exact path='/'><Home/></Route>
-          <Route exact path='/post'><Post/></Route>
-          </Switch>
-           </BrowserRouter>
-              </Router>
-          </Typography>
-          <div className={classes.search}>
+            </IconButton>
+            <Link to='/'>Home</Link>
+
+            <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -102,9 +105,31 @@ export default function Navbar() {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </div>
+             </div>
+          <Typography className={classes.title} variant="h6" noWrap>
+      <Link to='/posts' className='link'>  Sign Up</Link>
+          </Typography>
+         
+          
+         
         </Toolbar>
       </AppBar>
     </div>
-  );
+     
+        
+      
+
+        <Switch>
+          <Route path='/posts'>
+           <Post/>
+          </Route>
+          <Route path='/'>
+           <Home/>
+          </Route>
+        </Switch>
+      </Router>
+      </BrowserRouter>
+  )
 }
+
+export default Navbar
